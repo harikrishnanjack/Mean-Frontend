@@ -1,0 +1,133 @@
+<mat-card>
+  <form [formGroup]="postForm" (submit)="onSubmitPost()" autocomplete="off">
+    <div class="flex flex-col">
+      <div class="w-full">
+        <mat-form-field class="w-full">
+          <input
+            matInput
+            type="text"
+            placeholder="Post Title"
+            formControlName="title"
+          />
+        </mat-form-field>
+        <mat-error
+          *ngIf="
+            f['title'].touched &&
+            f['title'].invalid &&
+            f['title'].errors &&
+            f['title'].errors['required']
+          "
+          >This Field is required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            f['title'].touched &&
+            f['title'].invalid &&
+            f['title'].errors &&
+            f['title'].errors['minlength']
+          "
+          >This Field has min length 3</mat-error
+        >
+        <mat-error
+          *ngIf="
+            f['title'].touched &&
+            f['title'].invalid &&
+            f['title'].errors &&
+            f['title'].errors['titleExist']
+          "
+          >This Title exists</mat-error
+        >
+      </div>
+      <div class="flex items-center p-5">
+        <div class="pr-10">
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="filePicker.click()"
+            class="text-xs text-blue-800 hover:bg-blue-800 hover:text-white transition ease-in-out duration-300"
+          >
+            Pick Image
+          </button>
+          <input
+            type="file"
+            #filePicker
+            class="hidden"
+            (change)="onImagePicked($event)"
+            accept="image/png, image/gif, image/jpeg"
+          />
+        </div>
+        <div
+          class="w-32 overflow-hidden bg-cover"
+          *ngIf="imagePreview !== '' && imagePreview && f['image'].valid"
+        >
+          <img [src]="imagePreview" class="rounded-lg" />
+        </div>
+      </div>
+      <mat-error
+        *ngIf="
+          f['image'].touched &&
+          f['image'].invalid &&
+          f['image'].errors &&
+          f['image'].errors['required']
+        "
+        >This field is required</mat-error
+      >
+      <mat-error
+        *ngIf="
+          f['image'].touched &&
+          f['image'].invalid &&
+          f['image'].errors &&
+          f['image'].errors['invalidMimeType']
+        "
+        >Unsuppoted format</mat-error
+      >
+      <div>
+        <mat-form-field>
+          <textarea
+            matInput
+            rows="4"
+            formControlName="content"
+            placeholder="Post Content"
+          ></textarea>
+        </mat-form-field>
+        <mat-error
+          *ngIf="
+            f['content'].touched &&
+            f['content'].invalid &&
+            f['content'].errors &&
+            f['content'].errors['required']
+          "
+          >This Field is required</mat-error
+        >
+        <mat-error
+          *ngIf="
+            f['content'].touched &&
+            f['content'].invalid &&
+            f['content'].errors &&
+            f['content'].errors['minlength']
+          "
+          >This Field has min length 10</mat-error
+        >
+        <mat-error
+          *ngIf="
+            f['content'].touched &&
+            f['content'].invalid &&
+            f['content'].errors &&
+            f['content'].errors['maxlength']
+          "
+          >This Field has Max length 100</mat-error
+        >
+      </div>
+      <div class="flex justify-end">
+        <button
+          mat-raised-button
+          color="accent"
+          type="submit"
+          class="hover:bg-blue-800 transition ease-in-out duration-300 delay-100"
+        >
+          Save Post
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>

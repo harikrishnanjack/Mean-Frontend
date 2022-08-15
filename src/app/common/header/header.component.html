@@ -1,0 +1,44 @@
+<mat-toolbar color="primary" class="sticky top-0 z-40">
+  <mat-toolbar-row>
+    <div class="flex w-full justify-between items-center px-5">
+      <div>
+        <a routerLink="/" routerLinkActive="mat-accent">MyMessages</a>
+      </div>
+      <div class="flex">
+        <div
+          class="hover:bg-blue-800 rounded-lg transition ease-in-out duration-300 delay-100"
+          *ngIf="userIsAuthenticated"
+        >
+          <a mat-button [routerLink]="['create']" routerLinkActive="bg-blue-500"
+            >New Post</a
+          >
+        </div>
+        <div
+          class="hover:bg-blue-800 rounded-lg transition ease-in-out duration-300 delay-100"
+          *ngIf="!userIsAuthenticated"
+        >
+          <a
+            mat-button
+            [routerLink]="['auth/sign-in']"
+            routerLinkActive="bg-blue-500"
+            >Login</a
+          >
+        </div>
+        <div
+          class="hover:bg-blue-800 rounded-lg transition ease-in-out duration-300 delay-100"
+          *ngIf="!userIsAuthenticated"
+        >
+          <a
+            mat-button
+            [routerLink]="['auth/sign-up']"
+            routerLinkActive="bg-blue-500"
+            >Signup</a
+          >
+        </div>
+        <div *ngIf="userIsAuthenticated">
+          <button mat-button (click)="onLogout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
